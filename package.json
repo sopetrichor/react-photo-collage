@@ -33,6 +33,6 @@
     "@types/react-dom": "^16.8.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-images": "^0.5.19"
+    "react-images": "^1.0.0"
   }
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 
-import PhotoCollage from './app';
+import ReactPhotoCollage from './react-photo-collage/react-photo-collage-container';
 
 const setting = {
     width: '50%',
     margin: '2px',
     photosHeight: ['300px', '150px'],
-    layout: [1, 4],
+    layout: [2, 1 ,3],
     photos: [
         { src: 'https://images.unsplash.com/photo-1517088455889-bfa75135412c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e5548929376f93d8b1b7a21097df03bd&auto=format&fit=crop&w=749&q=80' },
         { src: 'https://images.unsplash.com/photo-1526656892012-7b336603ed46?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=31c8e58b58c25dfcc18452ed29b52951&auto=format&fit=crop&w=334&q=80' },
@@ -19,4 +19,4 @@ const setting = {
     ]
 };
 
-ReactDOM.render(<PhotoCollage {...setting} />, document.getElementById("index"));
+ReactDOM.render(<ReactPhotoCollage {...setting} />, document.getElementById("index"));
