@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import styled from 'styled-components';
 
 interface StyledComponentProps { [key: string]: any; }
-export const SC:StyledComponentProps = {};
+export const SC: StyledComponentProps = {};
 
 SC.PhotoCollage = styled.div`
     width: 800px;
@@ -11,7 +11,7 @@ SC.PhotoCollage = styled.div`
 SC.PhotoRow = styled.div`
     display: flex;
     border: 1px solid #ddd;
-    height: 250px;
+    height: 200px;
     box-sizing: border-box;
     & + & {
         margin-top: 2px;
@@ -72,20 +72,20 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
     const { photos, layoutNum, remainingNum, showNumOfRemainingPhotos, openLightbox } = props;
     return (
         <SC.PhotoRow>
-            { 
+            {
                 photos.map((data, i) => {
                     return (
                         <SC.PhotoGrid key={i} data-id={data.id} onClick={e => openLightbox(e.currentTarget.dataset.id)}>
                             {
                                 showNumOfRemainingPhotos && data.id === (layoutNum - 1) ?
-                                (
-                                    <React.Fragment>
-                                        <SC.PhotoMask></SC.PhotoMask>
-                                        <SC.ViewMore>
-                                            <SC.NumOfRemaining>{remainingNum}</SC.NumOfRemaining>
-                                        </SC.ViewMore>
-                                    </React.Fragment>
-                                ) : null
+                                    (
+                                        <React.Fragment>
+                                            <SC.PhotoMask></SC.PhotoMask>
+                                            <SC.ViewMore>
+                                                <SC.NumOfRemaining>{remainingNum}</SC.NumOfRemaining>
+                                            </SC.ViewMore>
+                                        </React.Fragment>
+                                    ) : null
                             }
                             <SC.PhotoThumb thumb={data.src}></SC.PhotoThumb>
                         </SC.PhotoGrid>
@@ -108,19 +108,19 @@ export const ReactPhotoCollageComponent: React.FC<ReactPhotoCollageComponentProp
     const { layout, layoutPhotoMaps, layoutNum, remainingNum, showNumOfRemainingPhotos, openLightbox } = props;
     return (
         <SC.PhotoCollage>
-            { 
+            {
                 layout.map((data, i) => {
                     return (
-                        <RowPhotos 
-                            key={i} 
-                            photos={layoutPhotoMaps[i]} 
+                        <RowPhotos
+                            key={i}
+                            photos={layoutPhotoMaps[i]}
                             openLightbox={openLightbox}
                             layoutNum={layoutNum}
                             remainingNum={remainingNum}
-                            showNumOfRemainingPhotos={showNumOfRemainingPhotos} 
+                            showNumOfRemainingPhotos={showNumOfRemainingPhotos}
                         />
                     )
-                }) 
+                })
             }
         </SC.PhotoCollage>
     );

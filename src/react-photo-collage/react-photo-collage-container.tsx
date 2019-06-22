@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Carousel, { Modal, ModalGateway } from "react-images";
 
-import { 
+import {
     ReactPhotoCollageComponent,
 } from './react-photo-collage-component';
 
+const checkProps = (props: any) => {
+    return null;
+}
+
 const createPhotoIds = (photos) => {
-    return photos.map((data, i) => { 
-        return {...data, id: i} 
+    return photos.map((data, i) => {
+        return { ...data, id: i }
     });
 }
 const createLayoutPhotoMaps = (layout, photos) => {
@@ -23,21 +27,21 @@ const createLayoutPhotoMaps = (layout, photos) => {
 }
 
 interface ReactPhotoCollageContainerProps {
+    width?: string;
+    height?: Array<string>;
     layout: Array<number>;
-    width: string;
-    margin: string;
-    photos: Array<{src: string}>;
-    photosHeight: Array<string>;
+    photos: Array<{ src: string }>;
 }
 const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (props) => {
+    const currProps = checkProps(props);
     const { layout, photos } = props;
     const layoutNum = layout.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     const remainingNum = photos.length - layoutNum;
-    const [ allowRender, setAllowRender ] = useState<boolean>(false);
-    const [ layoutPhotoMaps, setLayoutPhotoMaps ] = useState<any>({});
-    const [ viewerIsOpen, setViewerIsOpen ] = useState<boolean>(false);
-    const [ currentImage, setCurrentImage ] = useState<number>(0);
-    
+    const [allowRender, setAllowRender] = useState<boolean>(false);
+    const [layoutPhotoMaps, setLayoutPhotoMaps] = useState<any>({});
+    const [viewerIsOpen, setViewerIsOpen] = useState<boolean>(false);
+    const [currentImage, setCurrentImage] = useState<number>(0);
+
     useEffect(() => {
         setLayoutPhotoMaps(createLayoutPhotoMaps(layout, photos));
     }, []);
@@ -57,7 +61,7 @@ const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (p
     if (allowRender) {
         return (
             <React.Fragment>
-                <ReactPhotoCollageComponent 
+                <ReactPhotoCollageComponent
                     layout={layout}
                     layoutPhotoMaps={layoutPhotoMaps}
                     layoutNum={layoutNum}
@@ -66,13 +70,13 @@ const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (p
                     openLightbox={openLightbox}
                 />
                 <ModalGateway>
-                    { 
-                        viewerIsOpen ? 
-                        (
-                            <Modal onClose={closeLightbox}>
-                                <Carousel views={photos} currentIndex={currentImage} />
-                            </Modal>
-                        ) : null
+                    {
+                        viewerIsOpen ?
+                            (
+                                <Modal onClose={closeLightbox}>
+                                    <Carousel views={photos} currentIndex={currentImage} />
+                                </Modal>
+                            ) : null
                     }
                 </ModalGateway>
             </React.Fragment>
