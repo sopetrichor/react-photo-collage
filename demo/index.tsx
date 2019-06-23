@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import ReactPhotoCollage from './react-photo-collage/react-photo-collage-container';
 
 const setting = {
-    width: '800px',
+    width: '600px',
     height: ['250px', '170px'],
     layout: [1, 4],
     photos: [
@@ -15,7 +15,8 @@ const setting = {
         { src: 'https://images.unsplash.com/photo-1516832970803-325be7a92aa5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=93d7ac9abad6167aecb49ebd67fd5b6d&auto=format&fit=crop&w=751&q=80' },
         { src: 'https://images.unsplash.com/photo-1526938972776-11558ad4de30?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=973795a277e861265b0fabbf4a96afe2&auto=format&fit=crop&w=750&q=80' },
         { src: 'https://images.unsplash.com/photo-1464550838636-1a3496df938b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f22dbf6c13ea7c21e803aa721437b691&auto=format&fit=crop&w=888&q=80' },
-    ]
+    ],
+    showNumOfRemainingPhotos: true
 };
 
 ReactDOM.render(
