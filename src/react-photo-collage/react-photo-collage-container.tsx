@@ -1,13 +1,9 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import Carousel, { Modal, ModalGateway } from "react-images";
 
 import {
     ReactPhotoCollageComponent,
 } from './react-photo-collage-component';
-
-const checkProps = (props: any) => {
-    return null;
-}
 
 const createPhotoIds = (photos) => {
     return photos.map((data, i) => {
@@ -31,10 +27,27 @@ interface ReactPhotoCollageContainerProps {
     height?: Array<string>;
     layout: Array<number>;
     photos: Array<{ src: string }>;
+    showNumOfRemainingPhotos?: boolean
+}
+const checkProps = (props: ReactPhotoCollageContainerProps) => {
+    const defaultProps = {
+        width: '800px',
+        height: new Array(props.layout.length),
+        layout: [],
+        photos: [],
+        showNumOfRemainingPhotos: false
+    }
+    const newProps = { ...defaultProps, ...props };
+    if (newProps.height.length < newProps.layout.length) {
+        for (let i = 0; i < newProps.layout.length; i++) {
+            newProps.height[i] = '200px';
+        }
+    }
+    return newProps;
 }
 const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (props) => {
-    const currProps = checkProps(props);
-    const { layout, photos } = props;
+    const currProps = useMemo(() => checkProps(props), [props]);
+    const { width, height, layout, photos, showNumOfRemainingPhotos } = currProps;
     const layoutNum = layout.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     const remainingNum = photos.length - layoutNum;
     const [allowRender, setAllowRender] = useState<boolean>(false);
@@ -49,24 +62,26 @@ const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (p
         Object.keys(layoutPhotoMaps).length ? setAllowRender(true) : setAllowRender(false);
     }, [layoutPhotoMaps]);
 
-    const openLightbox = (id) => {
+    const openLightbox = useCallback((id) => {
         setCurrentImage(parseInt(id));
         setViewerIsOpen(true);
-    }
-    const closeLightbox = () => {
+    }, []);
+    const closeLightbox = useCallback(() => {
         setCurrentImage(0);
         setViewerIsOpen(false);
-    }
+    }, []);
 
     if (allowRender) {
         return (
             <React.Fragment>
                 <ReactPhotoCollageComponent
+                    width={width}
+                    height={height}
                     layout={layout}
                     layoutPhotoMaps={layoutPhotoMaps}
                     layoutNum={layoutNum}
                     remainingNum={remainingNum}
-                    showNumOfRemainingPhotos={true}
+                    showNumOfRemainingPhotos={showNumOfRemainingPhotos}
                     openLightbox={openLightbox}
                 />
                 <ModalGateway>

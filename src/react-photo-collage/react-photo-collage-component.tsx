@@ -5,13 +5,13 @@ interface StyledComponentProps { [key: string]: any; }
 export const SC: StyledComponentProps = {};
 
 SC.PhotoCollage = styled.div`
-    width: 800px;
+    width: ${props => props.collageWidth};
     font-family: Helvetica, Arial, sans-serif;
 `;
 SC.PhotoRow = styled.div`
     display: flex;
     border: 1px solid #ddd;
-    height: 200px;
+    height: ${props => props.rowHeight};
     box-sizing: border-box;
     & + & {
         margin-top: 2px;
@@ -62,6 +62,7 @@ SC.ViewMore = styled.div`
 `;
 
 interface RowPhotosProps {
+    height: string;
     photos: any;
     openLightbox: any;
     layoutNum: number;
@@ -69,9 +70,9 @@ interface RowPhotosProps {
     showNumOfRemainingPhotos: boolean;
 }
 const RowPhotos: React.FC<RowPhotosProps> = (props) => {
-    const { photos, layoutNum, remainingNum, showNumOfRemainingPhotos, openLightbox } = props;
+    const { height, photos, layoutNum, remainingNum, showNumOfRemainingPhotos, openLightbox } = props;
     return (
-        <SC.PhotoRow>
+        <SC.PhotoRow rowHeight={height}>
             {
                 photos.map((data, i) => {
                     return (
@@ -97,22 +98,25 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
 }
 
 interface ReactPhotoCollageComponentProps {
-    layout: any;
+    width: string;
+    height: Array<string>;
+    layout: Array<number>;
     layoutPhotoMaps: any;
     layoutNum: number;
     remainingNum: number;
     showNumOfRemainingPhotos: boolean;
     openLightbox: any;
 }
-export const ReactPhotoCollageComponent: React.FC<ReactPhotoCollageComponentProps> = (props) => {
-    const { layout, layoutPhotoMaps, layoutNum, remainingNum, showNumOfRemainingPhotos, openLightbox } = props;
+export const ReactPhotoCollageComponent: React.FC<ReactPhotoCollageComponentProps> = React.memo((props) => {
+    const { width, height, layout, layoutPhotoMaps, layoutNum, remainingNum, showNumOfRemainingPhotos, openLightbox } = props;
     return (
-        <SC.PhotoCollage>
+        <SC.PhotoCollage collageWidth={width}>
             {
                 layout.map((data, i) => {
                     return (
                         <RowPhotos
                             key={i}
+                            height={height[i]}
                             photos={layoutPhotoMaps[i]}
                             openLightbox={openLightbox}
                             layoutNum={layoutNum}
@@ -124,4 +128,4 @@ export const ReactPhotoCollageComponent: React.FC<ReactPhotoCollageComponentProp
             }
         </SC.PhotoCollage>
     );
-}
+});
