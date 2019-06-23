@@ -1,11 +1,5 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-
-const htmlPlugin = new HtmlWebPackPlugin({
-    template: "./src/index.html",
-      filename: "./index.html"
-});
-
 module.exports = {
+  mode: "production",
   entry: "./src/index.tsx",
   output: {
     filename: "bundle.js",
@@ -17,16 +11,15 @@ module.exports = {
   },
   module: {
     rules: [
-      { 
+      {
         test: /\.tsx?$/,
         loader: "awesome-typescript-loader"
       },
-      { 
+      {
         enforce: "pre",
         test: /\.js$/,
         loader: "source-map-loader"
       }
     ]
-  },
-  plugins: [htmlPlugin]
+  }
 };
