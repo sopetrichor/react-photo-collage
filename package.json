@@ -1,8 +1,8 @@
 {
   "name": "react-photo-collage",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
-  "main": "dist/bundle.js",
+  "main": "dist/index.js",
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc",
