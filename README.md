@@ -1,5 +1,7 @@
 # React Photo Collage
 
+[![image](https://nodei.co/npm/react-photo-collage.png?downloads=true&stars=true)](https://www.npmjs.com/package/react-photo-collage)
+
 ## Installation
 
 ```
