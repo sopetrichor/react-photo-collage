@@ -83,6 +83,13 @@ function App() {
 }
 ```
 
+## Demo
+![image](https://github.com/sopetrichor/react-photo-collage/blob/master/preview.png)
+
+[React-Photo-Collage-CodeSandbox](https://codesandbox.io/s/ecstatic-lake-qrj6u)
+
+Photos courtesy of [Unsplash](https://unsplash.com/).
+
 ## Development
 ```
 npm install
