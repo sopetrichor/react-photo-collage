@@ -56,6 +56,34 @@ npm install react-photo-collage
       <td>false</td>
       <td></td>
     </tr>
+    <tr>
+      <td>onClick(index: number)</td>
+      <td>Function</td>
+      <td>false</td>
+      <td>null</td>
+      <td>Will call this function instead of the lightbox</td>
+    </tr>
+    <tr>
+      <td>moreItemsRenderer(itemsRemain: number)</td>
+      <td>Function</td>
+      <td>false</td>
+      <td>null</td>
+      <td>Render your component overlay instead of the default one</td>
+    </tr>
+    <tr>
+      <td>gap</td>
+      <td>number</td>
+      <td>false</td>
+      <td>2</td>
+      <td>Pixels between photos</td>
+    </tr>
+    <tr>
+      <td>showBorders</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>true</td>
+      <td>Show default border</td>
+    </tr>
   </tbody>
 </table>
 

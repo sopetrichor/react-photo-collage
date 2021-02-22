@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 interface StyledComponentProps { [key: string]: any; }
 export const SC: StyledComponentProps = {};
@@ -10,11 +10,13 @@ SC.PhotoCollage = styled.div`
 `;
 SC.PhotoRow = styled.div`
     display: flex;
-    border: 1px solid #ddd;
+    ${props => props.showBorders && css`
+      border: 1px solid #ddd;
+    `}
     height: ${props => props.rowHeight};
     box-sizing: border-box;
     & + & {
-        margin-top: 2px;
+        margin-top: ${props => props.gap+"px"};
     }
 `;
 SC.PhotoGrid = styled.div`
@@ -23,7 +25,7 @@ SC.PhotoGrid = styled.div`
     flex: 1;
     cursor: pointer;
     & + & {
-        margin-left: 2px;
+        margin-left: ${props => props.gap+"px"};
     }
 `;
 SC.PhotoThumb = styled.div`
@@ -64,29 +66,34 @@ SC.ViewMore = styled.div`
 interface RowPhotosProps {
     height: string;
     photos: any;
-    openLightbox: any;
+    onClick: Function;
     layoutNum: number;
     remainingNum: number;
     showNumOfRemainingPhotos: boolean;
+    moreItemsRenderer?: Function;
+    gap: number;
+    showBorders?: boolean;
 }
 const RowPhotos: React.FC<RowPhotosProps> = (props) => {
-    const { height, photos, layoutNum, remainingNum, showNumOfRemainingPhotos, openLightbox } = props;
+    const { height, photos, layoutNum, remainingNum, showNumOfRemainingPhotos, onClick, moreItemsRenderer, gap, showBorders } = props;
     return (
-        <SC.PhotoRow rowHeight={height}>
+        <SC.PhotoRow rowHeight={height} gap={gap} showBorders={showBorders}>
             {
                 photos.map((data, i) => {
                     return (
-                        <SC.PhotoGrid key={i} data-id={data.id} onClick={e => openLightbox(e.currentTarget.dataset.id)}>
+                        <SC.PhotoGrid key={i} data-id={data.id} onClick={e => onClick(e.currentTarget.dataset.id)} gap={gap} showBorders={showBorders}>
                             {
                                 showNumOfRemainingPhotos && data.id === (layoutNum - 1) ?
-                                    (
-                                        <React.Fragment>
-                                            <SC.PhotoMask></SC.PhotoMask>
-                                            <SC.ViewMore>
-                                                <SC.NumOfRemaining>{remainingNum}</SC.NumOfRemaining>
-                                            </SC.ViewMore>
-                                        </React.Fragment>
-                                    ) : null
+                                    moreItemsRenderer
+                                        ? moreItemsRenderer(remainingNum)
+                                        : (
+                                            <React.Fragment>
+                                                <SC.PhotoMask></SC.PhotoMask>
+                                                <SC.ViewMore>
+                                                    <SC.NumOfRemaining>{remainingNum}</SC.NumOfRemaining>
+                                                </SC.ViewMore>
+                                            </React.Fragment>
+                                        ) : null
                             }
                             <SC.PhotoThumb thumb={data.src}></SC.PhotoThumb>
                         </SC.PhotoGrid>
@@ -105,10 +112,13 @@ interface ReactPhotoCollageComponentProps {
     layoutNum: number;
     remainingNum: number;
     showNumOfRemainingPhotos: boolean;
-    openLightbox: any;
+    onClick: any;
+    moreItemsRenderer?: Function;
+    gap: number;
+    showBorders: boolean;
 }
 export const ReactPhotoCollageComponent: React.FC<ReactPhotoCollageComponentProps> = React.memo((props) => {
-    const { width, height, layout, layoutPhotoMaps, layoutNum, remainingNum, showNumOfRemainingPhotos, openLightbox } = props;
+    const { width, height, layout, layoutPhotoMaps, layoutNum, remainingNum, showNumOfRemainingPhotos, onClick, moreItemsRenderer, gap, showBorders } = props;
     return (
         <SC.PhotoCollage collageWidth={width}>
             {
@@ -118,10 +128,13 @@ export const ReactPhotoCollageComponent: React.FC<ReactPhotoCollageComponentProp
                             key={i}
                             height={height[i]}
                             photos={layoutPhotoMaps[i]}
-                            openLightbox={openLightbox}
+                            onClick={onClick}
                             layoutNum={layoutNum}
                             remainingNum={remainingNum}
                             showNumOfRemainingPhotos={showNumOfRemainingPhotos}
+                            moreItemsRenderer={moreItemsRenderer}
+                            gap={gap}
+                            showBorders={showBorders}
                         />
                     )
                 })
