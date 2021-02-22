@@ -16,7 +16,11 @@ const setting = {
     { src: 'https://images.unsplash.com/photo-1526938972776-11558ad4de30?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=973795a277e861265b0fabbf4a96afe2&auto=format&fit=crop&w=750&q=80' },
     { src: 'https://images.unsplash.com/photo-1464550838636-1a3496df938b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f22dbf6c13ea7c21e803aa721437b691&auto=format&fit=crop&w=888&q=80' },
   ],
-  showNumOfRemainingPhotos: true
+  showNumOfRemainingPhotos: true,
+  moreItemsRenderer: (items) => <span className="Random">{items}</span>,
+  onClick: (index) => alert(index),
+  gap: 10,
+  showBorders: false
 };
 
 ReactDOM.render(

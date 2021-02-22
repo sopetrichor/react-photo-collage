@@ -27,7 +27,11 @@ interface ReactPhotoCollageContainerProps {
     height?: Array<string>;
     layout: Array<number>;
     photos: Array<{ src: string }>;
-    showNumOfRemainingPhotos?: boolean
+    showNumOfRemainingPhotos?: boolean;
+    onClick?: Function;
+    moreItemsRenderer?: Function;
+    gap?: number;
+    showBorders?: boolean;
 }
 const checkProps = (props: ReactPhotoCollageContainerProps) => {
     const defaultProps = {
@@ -35,7 +39,11 @@ const checkProps = (props: ReactPhotoCollageContainerProps) => {
         height: new Array(props.layout.length),
         layout: [],
         photos: [],
-        showNumOfRemainingPhotos: false
+        showNumOfRemainingPhotos: false,
+        onClick: null,
+        moreItemsRenderer: null,
+        gap: 2,
+        showBorders: true
     }
     const newProps = { ...defaultProps, ...props };
     if (newProps.height.length < newProps.layout.length) {
@@ -47,7 +55,7 @@ const checkProps = (props: ReactPhotoCollageContainerProps) => {
 }
 const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (props) => {
     const currProps = useMemo(() => checkProps(props), [props]);
-    const { width, height, layout, photos, showNumOfRemainingPhotos } = currProps;
+    const { width, height, layout, photos, showNumOfRemainingPhotos, onClick, moreItemsRenderer, gap, showBorders } = currProps;
     const layoutNum = layout.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     const remainingNum = photos.length - layoutNum;
     const [allowRender, setAllowRender] = useState<boolean>(false);
@@ -82,7 +90,10 @@ const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (p
                     layoutNum={layoutNum}
                     remainingNum={remainingNum}
                     showNumOfRemainingPhotos={showNumOfRemainingPhotos}
-                    openLightbox={openLightbox}
+                    onClick={onClick ? onClick : openLightbox}
+                    moreItemsRenderer={moreItemsRenderer}
+                    gap={gap}
+                    showBorders={showBorders}
                 />
                 <ModalGateway>
                     {
