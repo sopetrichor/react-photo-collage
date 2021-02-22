@@ -83,7 +83,7 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
                     return (
                         <SC.PhotoGrid key={i} data-id={data.id} onClick={e => onClick(e.currentTarget.dataset.id)} gap={gap} showBorders={showBorders}>
                             {
-                                showNumOfRemainingPhotos && data.id === (layoutNum - 1) ?
+                                showNumOfRemainingPhotos && remainingNum > 0 && data.id === (layoutNum - 1) ?
                                     moreItemsRenderer
                                         ? moreItemsRenderer(remainingNum)
                                         : (
