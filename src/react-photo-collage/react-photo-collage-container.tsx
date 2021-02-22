@@ -28,7 +28,7 @@ interface ReactPhotoCollageContainerProps {
     layout: Array<number>;
     photos: Array<{ src: string }>;
     showNumOfRemainingPhotos?: boolean;
-    clickHandler?: Function;
+    onClick?: Function;
     moreItemsRenderer?: Function;
     gap?: number;
     showBorders?: boolean;
