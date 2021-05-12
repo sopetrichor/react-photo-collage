@@ -78,7 +78,7 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
                     return (
                         <SC.PhotoGrid key={i} data-id={data.id} onClick={e => openLightbox(e.currentTarget.dataset.id)}>
                             {
-                                showNumOfRemainingPhotos && data.id === (layoutNum - 1) ?
+                                showNumOfRemainingPhotos && remainingNum > 0 && data.id === (layoutNum - 1) ?
                                     (
                                         <React.Fragment>
                                             <SC.PhotoMask></SC.PhotoMask>
@@ -88,7 +88,7 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
                                         </React.Fragment>
                                     ) : null
                             }
-                            <SC.PhotoThumb thumb={data.src}></SC.PhotoThumb>
+                            <SC.PhotoThumb thumb={data.source}></SC.PhotoThumb>
                         </SC.PhotoGrid>
                     )
                 })
