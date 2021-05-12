@@ -88,7 +88,7 @@ function App() {
 ## Demo
 ![image](https://raw.githubusercontent.com/sopetrichor/react-photo-collage/master/preview.png)
 
-[React-Photo-Collage-CodeSandbox](https://codesandbox.io/s/ecstatic-lake-qrj6u)
+[React-Photo-Collage-CodeSandbox](https://codesandbox.io/s/9318y)
 
 Photos courtesy of [Unsplash](https://unsplash.com/).
 
