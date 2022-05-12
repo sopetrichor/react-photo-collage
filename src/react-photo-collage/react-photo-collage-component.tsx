@@ -92,6 +92,7 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
                             <SC.PhotoThumbContainer>
                                 <SC.PhotoThumb
                                     src={data.source}
+                                    alt={data.alt}
                                 />
                             </SC.PhotoThumbContainer>
                         </SC.PhotoGrid>
