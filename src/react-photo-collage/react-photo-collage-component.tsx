@@ -26,13 +26,14 @@ SC.PhotoGrid = styled.div`
         margin-left: 2px;
     }
 `;
-SC.PhotoThumb = styled.div`
+SC.PhotoThumbContainer = styled.div`
     flex: 1;
-    background-image: url(${props => props.thumb});
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
 `;
+SC.PhotoThumb = styled.img`
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+`
 SC.PhotoMask = styled.div`
     display: block;
     background-color: rgba(0, 0, 0, .4);
@@ -88,7 +89,12 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
                                         </React.Fragment>
                                     ) : null
                             }
-                            <SC.PhotoThumb thumb={data.source}></SC.PhotoThumb>
+                            <SC.PhotoThumbContainer>
+                                <SC.PhotoThumb
+                                    src={data.source}
+                                    alt={data.alt}
+                                />
+                            </SC.PhotoThumbContainer>
                         </SC.PhotoGrid>
                     )
                 })

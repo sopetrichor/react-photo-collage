@@ -50,17 +50,9 @@ const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (p
     const { width, height, layout, photos, showNumOfRemainingPhotos } = currProps;
     const layoutNum = layout.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     const remainingNum = photos.length - layoutNum;
-    const [allowRender, setAllowRender] = useState<boolean>(false);
-    const [layoutPhotoMaps, setLayoutPhotoMaps] = useState<any>({});
+    const [layoutPhotoMaps, setLayoutPhotoMaps] = useState<any>(createLayoutPhotoMaps(layout, photos));
     const [viewerIsOpen, setViewerIsOpen] = useState<boolean>(false);
     const [currentImage, setCurrentImage] = useState<number>(0);
-
-    useEffect(() => {
-        setLayoutPhotoMaps(createLayoutPhotoMaps(layout, photos));
-    }, []);
-    useEffect(() => {
-        Object.keys(layoutPhotoMaps).length ? setAllowRender(true) : setAllowRender(false);
-    }, [layoutPhotoMaps]);
 
     const openLightbox = useCallback((id) => {
         setCurrentImage(parseInt(id));
@@ -71,7 +63,7 @@ const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (p
         setViewerIsOpen(false);
     }, []);
 
-    if (allowRender) {
+    if (Object.keys(layoutPhotoMaps).length) {
         return (
             <React.Fragment>
                 <ReactPhotoCollageComponent
